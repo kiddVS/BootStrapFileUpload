@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/fileinput.js"></script>    
+    <script src="~/Scripts/locales/zh.js"></script>
+    <link href="~/Content/bootstrap-fileinput/css/fileinput.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            var uploadurl = "/UpLoad/UploadFile";
+            var control = $("#txt_file");
+            control.fileinput({
+                language: 'zh',
+                uploadUrl: uploadurl,
+                allowedFileExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                showUpload: true,
+                showCaption: false,
+                browseClass: "btn btn-primary",
+                dropZoneEnabled: true,
+                maxFileCount: 100,
+                enctype: 'multipart/form-data',
+                validateInitialCount: true,
+                previewFileIncon: "<i class='glyphicom glyphicon-king'></i>",
+                msgFilesTooMany:"选择上传的文件数量（{n}）超过允许的最大值{m}",
+            });
+            $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
+               // var name = data.FileName.substring(0, data.FileName.lastindexof('.') - 1);
+                var name = data.filenames[index];
+                name = name.substring(0, name.lastIndexOf('.') );
+                alert("文件"+name+"上传完成");
+            })
+        })
+    </script>
+</head>
+<body>
+    <div> 
+        <form>
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">[请选择jpg、png、jpeg、gif]文件</h4>
+                <div class="modal-body">
+                    <input type="file"  id="txt_file" name="txt_file" multiple class="file-loading" />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
